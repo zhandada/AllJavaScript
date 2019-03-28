@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			*{
+				margin: 0;
+				padding: 0;
+			}
+			.box{
+				width: 300px;
+				height: 300px;
+				border: 1px solid black;
+				padding: 10px;
+				margin: 20px;
+				background: red;
+				/*position: absolute;*/
+			}
+			.box .small{
+				width: 100px;
+				height: 100px;
+				border: 2px solid purple;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="box">
+			<div class="small">
+				
+			</div>
+		</div>
+	</body>
+	
+	<script type="text/javascript">
+		var box=document.getElementsByClassName("box")[0];
+		var small=document.getElementsByClassName("small")[0];
+		//offsetLeft offsetTop
+		//获取的是该元素的左边框到（不包含变框值）
+		//具有定位的父元素的边框（不包含变框值）之间的距离
+		//如果父元素没有定位，一直向上找有定位的父元素。。。。
+		//如果都找不到，那就是到body的距离
+		console.log("small.offsetLeft="+small.offsetLeft);
+		console.log("small.offsetTop="+small.offsetTop);
+		//offsetParen 
+		//值是该元素具有定位的父元素，
+		//如果父元素都没有定位，那就是body
+		console.log("small.offsetParen="+small.offsetParent);
+		console.log("small.parentNode="+small.parentNode);
+	</script>
+</html>

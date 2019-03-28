@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			*{
+				margin: 0;
+				padding: 0;
+			}
+			.box{
+				width: 340px;
+				height: 30px;
+				margin: 100px auto;
+				background: url(img/bg.jpg) no-repeat;
+			}
+			ul{
+				list-style: none;
+			}
+			ul li{
+				width: 100px;
+				height: 30px;
+				text-align: center;
+				line-height: 30px;
+				float: left;
+				margin-left: 10px;
+				background: url(img/libg.jpg) no-repeat;
+				cursor: pointer;
+			}
+			ul ul{
+				margin-left: -10px;
+				display: none;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="box" id="box">
+			<ul>
+				<li>
+					一级菜单
+					<ul>
+						<li>二级菜单</li>
+						<li>二级菜单</li>
+						<li>二级菜单</li>
+					</ul>
+				</li>
+				<li>
+					一级菜单
+					<ul>
+						<li>二级菜单</li>
+						<li>二级菜单</li>
+						<li>二级菜单</li>
+					</ul>
+				</li>
+				<li>
+					一级菜单
+					<ul>
+						<li>二级菜单</li>
+						<li>二级菜单</li>
+						<li>二级菜单</li>
+					</ul>
+				</li>
+			</ul>
+		</div>
+	</body>
+	<script type="text/javascript">
+		var box=document.getElementById("box");
+		var firstLis=box.children[0].children;
+//		var secondULs=firstLis.children;
+//		console.log(secondULs);
+
+//		for(var i=0;i<firstLis.length;i++){
+//			firstLis[i].onmouseover=function(){
+//				this.children[0].style.display="block";
+//			}
+//			firstLis[i].onmouseout=function(){
+//				this.children[0].style.display="none";
+//			}
+//		}
+		
+		//获取元素     遍历       显示      隐藏
+		function List(id){
+			this.obj=document.getElementById(id);
+			this.lis=this.obj.children[0].children;
+		}
+		
+		//封住的 显示模块
+		List.prototype.show=function(obj){
+			obj.style.display="block";
+		}
+		
+		//封住的 隐藏模块
+		List.prototype.hidden=function(obj){
+			obj.style.display="none";
+		}
+		//遍历
+		List.prototype.init=function(){
+			var that=this;
+			for(var i=0;i<this.lis.length;i++){
+				this.lis[i].onmouseover=function(){
+					that.show(this.children[0]);
+				}
+				this.lis[i].onmouseout=function(){
+					that.hidden(this.children[0]);
+				}
+			}
+		}
+		
+		//初始化
+		var list=new List("box");
+		list.init();
+	</script>
+</html>

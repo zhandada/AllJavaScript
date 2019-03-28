@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>缓动动画</title>
+		<style>
+			.box{
+				width: 100px;
+				height: 100px;
+				background: red;
+				position: absolute;
+				left: 0;
+				top: 100px;
+			}
+		</style>
+		<script type="text/javascript">
+			window.onload=function(){
+				var btn=document.getElementById("btn");
+				var box=document.getElementById("box");
+				//缓动动画需要两个变量
+				var leader=0;//步长
+				var target=500;//目标距离
+				//缓动学公式
+				//leader=leader+(target-leader)/10
+				btn.onclick=function(){
+					setInterval(function(){
+						leader=leader+(target-leader)/10;
+						//次数  leader target
+						//1    0       500
+						//2    50	   500
+						//3    95      500
+						box.style.left=leader+"px";
+					},30);
+				}
+			}
+		</script>
+	</head>
+	<body>
+		<button id="btn">点我开始</button>
+		<div class="box" id="box">
+			
+		</div>
+	</body>
+</html>

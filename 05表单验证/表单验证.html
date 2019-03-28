@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>表单验证</title>
+		<style type="text/css">
+			*{
+				margin: 0;
+				padding: 0;
+			}
+			.box{
+				margin-top: 100px;
+				text-align: center;
+			}
+			.box input{
+				height: 18px;
+			}
+			.box span{
+				background: gray;
+				border: 1px solid #cccccc;
+				width: 300px;
+				display: inline-block;
+				text-align: left;
+				padding-left: 20px;
+				height: 20px;
+				vertical-align: bottom;
+			}
+			.box span.right{
+				background: #dfffdf url(images/right.png) no-repeat center left;
+				color: #008000;
+				border: 1px solid #aaffdf;
+			}
+			.box span.wrong{
+				background: #ffdcd0 url(images/wrong.png) no-repeat center left;
+				color: #ff0000;
+				border: 1px solid #dddcd0;
+			}
+		</style>
+		<script>
+			window.onload=function(){
+				//模拟jQuery $函数
+				function $(id){
+					return document.getElementById(id);
+				}
+				//input 失去焦点事件
+				$("grade").onblur=function(){
+					var txt=$("grade").value;
+					if(txt==""){
+						$("tips").innerHTML="小哥哥，内容不能为空";
+						$("tips").className="wrong";
+					}else if(isNaN(txt)){
+						$("tips").innerHTML="小哥哥，请输入数字";
+						$("tips").className="wrong";
+					}else if(txt>150 || txt<0){
+						$("tips").innerHTML="小哥哥，成绩范围0-150";
+						$("tips").className="wrong";
+					}else{
+						$("tips").innerHTML="小哥哥，输入合理";
+						$("tips").className="right";
+					}
+				}
+			}
+		</script>
+	</head>
+	<body>
+		<!--<form action="#" method="get">
+			邮箱：<input type="email" name="emai" id="email" />
+			<br />
+			<input type="submit"  value="提交"/>
+		</form>-->
+		<div class="box">
+			<label for="grade">高数</label>
+			<input id="grade" />
+			<span id="tips">
+				请输入数字
+			</span>
+		</div>
+	</body>
+</html>

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			*{
+				margin: 0;
+				padding: 0;
+			}
+			.box{
+				width: 400px;
+				height: 10px;
+				background: gray;
+				margin: 100px auto;
+				position: relative;
+			}
+			.bar{
+				width: 10px;
+				height: 20px;
+				position: absolute;
+				top: -5px;
+				left: 0;
+				background: red;
+				cursor: pointer;
+			}
+			.box .mask{
+				height: 10px;
+				position: absolute;
+				top: 0;
+				left: 0;
+				background: red;
+			}
+			p{
+				text-align: center;
+				margin-top: 50px;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="box" id="box">
+			<div class="bar">
+				
+			</div>
+			<!--遮罩层-->
+			<div class="mask">
+				
+			</div>
+		</div>
+		<p id="percent"></p>
+	</body>
+	<script type="text/javascript">
+		var box=document.getElementById("box");
+		var bar=box.children[0];
+		var mask=box.children[1];
+		var percent=document.getElementById("percent");
+		var leftValue=0;
+		
+		//鼠标按下去，不松
+		bar.onmousedown=function(event){
+			event=event || window.event;
+			leftValue=event.clientX-this.offsetLeft;
+			console.log("leftValue="+leftValue);
+			//onmouseover   只执行一次
+			//onmousemove  鼠标在文档里面移动1px,业务代码就执行一次
+			document.onmousemove=function(event){
+				//业务代码
+				event =event || window.event;
+				var val=event.clientX-leftValue;
+				var totalWidth=box.offsetWidth-bar.offsetWidth;
+				if(val<=0){
+					val=0;
+				}else if(val>=totalWidth){
+					val=totalWidth;
+				}
+				bar.style.left=val+"px";
+				mask.style.width=val+"px";
+				var pp=val/totalWidth*100;
+				pp=pp.toFixed(2);
+				percent.innerHTML="走了："+pp+"%";
+				//去除移动过程中，选中的文本
+				//ie
+//				document.selection.empty();
+				//除了ie
+//				window.getSelection().removeAllRanges();
+				window.getSelection?window.getSelection().removeAllRanges():document.selection.empty();
+			}
+		}
+		document.onmouseup=function(){
+			document.onmousemove=null;
+		}
+	</script>
+</html>

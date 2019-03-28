@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>发布微博</title>
+		<style type="text/css">
+			*{
+				margin: 0;
+				padding: 0;
+			}
+			.box{
+				width: 600px;
+				height: auto;
+				border: 1px solid gray;
+				margin: 100px auto;
+			}
+			.box textarea{
+				height: 78px;
+				border: 1px solid gray;
+				resize: none;
+				width: 580px;
+				margin-left: 10px;
+				margin-top: 10px;
+			}
+			.box button{
+				border: none;
+				width: 82px;
+				height: 30px;
+				border-radius: 2px;
+				background: #ffc09f;
+				color: white;
+				font-weight: 700;
+				margin-left: 510px;
+			}
+			.box ul{
+				list-style: none;
+			}
+			.box ul li{
+				width: 580px;
+				border-bottom: 1px dashed gray;
+				line-height: 30px;
+				margin-left: 10px;
+			}
+			.box ul li a{
+				float: right;
+				text-decoration: none;
+			}
+		</style>
+		<script type="text/javascript">
+			window.onload=function(){
+				function $(id){
+					return document.getElementById(id);
+				}
+				var btn=$("release");
+				var textArea=$("content");
+				var box=$("box");
+				var ul=document.createElement("ul");
+				box.appendChild(ul);
+				btn.onclick=function(){
+					//1.获取输入的值
+					var content=textArea.value;
+					//2.清除文本域里面的内容
+					textArea.value="";
+					if(content==""){
+						alert("内容不能为空");
+						return ;//如果内容为空，下面的代码不在执行
+					}
+					var li=document.createElement("li");
+					li.innerHTML=content+"<a href=javascript:;>删除</a>"
+					var childerenLi=ul.children;
+					//判断是否第一次动态追加 li标签
+					if(childerenLi.length<0){
+						ul.appendChild(li);
+					}else{
+						//如果不是第一次追加，就在ul的第一个节点前面追加
+						//确保每次添加的新li都在第一个位置
+						ul.insertBefore(li,ul.firstChild);
+					}
+					
+					//3.获取所有的a标签
+					var as=document.getElementsByTagName("a");
+					for(var i=0;i<as.length;i++){
+						as[i].onclick=function(){
+							//this 关键字 指代的是事件的调用者即as[i]
+							ul.removeChild(this.parentNode);
+						}
+					}
+				}
+			}
+		</script>
+	</head>
+	<body>
+		<div class="box" id="box">
+			<textarea id="content"></textarea>
+			<button id="release">发布</button>
+			<!--<ul>
+				<li>dddd<a href="javascript:;">删除</a></li>
+				<li>dddd<a href="javascript:;">删除</a></li>
+				<li>dddd<a href="javascript:;">删除</a></li>
+				<li>dddd<a href="javascript:;">删除</a></li>
+				<li>dddd<a href="javascript:;">删除</a></li>
+			</ul>-->
+		</div>
+	</body>
+</html>

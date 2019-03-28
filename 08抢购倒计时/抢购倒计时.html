@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>抢购倒计时</title>
+		<style type="text/css">
+			*{
+				margin: 0;
+				padding: 0;
+			}
+			p{
+				text-align: center;
+				padding: 100px;
+				color: red;
+				font-size: 30px;
+			}
+		</style>
+		<script>
+			window.onload=function(){
+				//1.获取结束的时间
+				var endTime=new Date("2019/04/30 23:59:59");
+				setInterval(fn,1000);
+				var p=document.getElementsByTagName("p")[0];
+				function fn(){
+					//2.获取当前时间
+					var currentTime=new Date();
+					//3.另个时间差 单位毫秒
+					var ms=endTime.getTime()-currentTime.getTime();
+					//4. 毫秒转换秒
+					var seconds=parseInt(ms/1000);
+					console.log(seconds);
+					var day=parseInt(seconds/3600/24);
+					var hour=parseInt(seconds/3600%24);
+					
+					var temps=seconds-(day*24*60*60+hour*60*60);
+					var minute=0;
+					if(temps>0){
+						minute=parseInt(temps/60);
+					}
+					var second=0;
+					var tempss=seconds-(day*24*60*60+hour*60*60+minute*60);
+					if(tempss>0){
+						second=tempss;
+					}
+					day<10?day="0"+day:day;
+					hour<10?hour="0"+hour:hour;
+					minute<10?minute="0"+minute:minute;
+					second<10?second="0"+second:second;
+					p.innerHTML="距离五一活动还剩："+day+"天"+hour+"时"+minute+"分"+second+"秒";
+				}
+			}
+		</script>
+	</head>
+	<body>
+		<p>
+			距离五一活动还剩：
+		</p>
+	</body>
+</html>
